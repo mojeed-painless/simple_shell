@@ -25,7 +25,7 @@ void execute_order(const char *order)
 			args[arg_c++] = token;
 			token = strtok(NULL, " ");
 		}
-		arg[arg_count] = NULL;
+		args[arg_c] = NULL;
 
 		execvp(args[0], args);
 
