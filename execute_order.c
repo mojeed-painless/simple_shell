@@ -11,13 +11,25 @@ void execute_order(const char *order)
 
 	if (child_pid == -1)
 	{
-		perror("fork");
+		mjd_display("Error forking process.\n");
 		exit(EXIT_FAILURE);
 	}
 	else if (child_pid == 0)
 	{
-		execlp(order, order, (char *)NULL);
-		perror("execlp");
+		char *args[130];
+		int arg_c = 0;
+
+		char *token = strtok((char *)order, " ");
+		while (token != NULL)
+		{
+			args[arg_c++] = token;
+			token = strtok(NULL, " ");
+		}
+		arg[arg_count] = NULL;
+
+		execvp(args[0], args);
+
+		mjd_display("Error executing command.\n");
 		exit(EXIT_FAILURE);
 	}
 	else
